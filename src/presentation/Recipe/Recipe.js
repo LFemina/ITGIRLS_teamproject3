@@ -1,9 +1,12 @@
 export function Recipe(recipe) {
-    const container = document.createElement("div");
+  // функция отображает рецепт (принимает объект )
+  const container = document.createElement("div"); // метод recipeDto
 
-    container.innerHTML = `
-        <h2>${recipe.recipeDto.title}</h2>
+  container.innerHTML = `
+        <h2>${recipe.recipeDto.title}</h2> 
+        <p>${recipe.recipeDto.ingredient}</p>
+        <p>${recipe.recipeDto.body}</p>
     `;
 
-    return container;
+  return container;
 }

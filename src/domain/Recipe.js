@@ -1,53 +1,68 @@
-export class Recipe {
+export class Recipe { //класс - это модель и шаблон для объекта (используется в RecipeApiService при создании нового экземпляра класса, который инкапсулирует данные рецепта, полученные с сервера
+  
+  #id;
   #type; // возможно, не нужно
   #title; // состояние лучше инкапсулировать и возвращать его объектом (никто не сможет наши задачи изменить)
   #ingredient;
   #body;
-  // #image;
+  #image;
   #author;
   #created_at;
-  // #added_to_fav = false; //для чекбокса или кнопки сохранения в избранное
+ 
 
-  constructor(
+  constructor( //конструктор - фукнция, создающая объекты, принимает на вход параметры)
+    id,
     type,
     title,
     ingredient,
     body,
-    // image,
+    image,
     author,
     created_at = new Date().getTime() // ?
   ) {
+    this.#id = id;
     this.#type = type;
     this.#title = title;
     this.#ingredient = ingredient;
     this.#body = body;
-    // this.#image = image;
+    this.#image = image;
     this.#author = author;
     this.#created_at = created_at;
   }
-  //метод выведения содержания карточки
+
+  static fromApi(
+    {
+      id,
+      title,
+      type,
+      ingredient,
+      body,
+      image,
+      author,
+      created_at
+  }
+
+){ 
+  return new Recipe(id, type, title, ingredient, body, image, author, created_at);
+
+  }
+  //метод выведения содержания карточки(используется в presentation - recipe)
   get recipeDto() {
-    // data-transfer-objectэто геттер, специальная функция, которая обрабатывает данные и возвращает их наружу, чтобы мы могли воспользоваться этой информацией
+    // data-transfer-object это геттер, специальная функция, которая обрабатывает данные и возвращает их наружу, чтобы мы могли воспользоваться этой информацией
     return {
+
       title: this.#title,
       ingredient: this.#ingredient,
       body: this.#body,
-      // image: this.#image,
+      image: this.#image,
       author: this.#author,
       created_at: this.#created_at,
-      // added_to_fav: this.#added_to_fav,
     };
   }
-  //Безопасное изменение данных
-  //const recipe = new Recipe();
-  //const data = recipe.recipeDto;
-  //data.content = ""; // можно поменять контент рецепта
-  //console.log(data); // измененный
-  //console.log(recipe.recipeDto) - здесь контент остается иммутабельным
 
   //Метод сохранения рецепта 
   serialize() {
-    // возвращаем плоский объект, а не строки, как могли бы подумать исходя из названия метода
+    // возвращаем плоский объект, а не строки, как могли бы подумать исходя из названия метода (используется в RecipeApiService при запросе post)
     return {
       type: this.#type,
       title: this.#title,
@@ -56,7 +71,6 @@ export class Recipe {
       // image: this.#image,
       author: this.#author,
       created_at: this.#created_at,
-      // added_to_fav: this.#added_to_fav,
     };
   }
 }

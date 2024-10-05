@@ -1,16 +1,19 @@
 import { recipeApiService } from "../../infrastructure/RecipeApiService";
-import { dispatchRecipeAdded } from "../List/List";
+import { Recipe } from "../Recipe/Recipe.js";
 
 // Формируем компонент формы
 export function Form() {
+  const container = document.createElement("div");
   const form = document.createElement("form");
   const title = document.createElement("h2");
   const inputRecipeNumber = document.createElement("input");
   const selectDish = document.createElement("select");
-  const button = document.createElement("button");
+  const button = document.createElement("button"); // получаем все элементы
+
+  container.appendChild(form);
 
   // Заголовок формы
-  title.innerText = "Рецепты для разнообразия вашего рациона";
+  title.innerText = "Готовые рецепты для разнообразия вашего рациона"; // прописываем заголовок
 
   // Устанавливаем атрибуты для номера рецепта
   inputRecipeNumber.setAttribute("type", "number");
@@ -24,7 +27,7 @@ export function Form() {
   const dishOptions = [
     {
       value: "",
-      text: "Выберите тип блюда",
+      text: "Выберите основное меню:",
       disabled: true,
       selected: true,
       hidden: true,
@@ -54,6 +57,8 @@ export function Form() {
   // Обработчик отправки формы
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    container.innerHTML = "";
+    container.appendChild(form);
 
     // Получаем значения из формы
     const recipeNumber = parseInt(inputRecipeNumber.value.trim(), 10);
@@ -72,11 +77,8 @@ export function Form() {
 
     // Читаем рецепт с помощью API сервиса
     try {
-      await recipeApiService.read(dishType);
-
-      // Обновляем UI (например, перезагружаем список рецептов)
-      dispatchRecipeAdded();
-      alert("Рецепт успешно добавлен!");
+      const recipe = await recipeApiService.read(dishType);
+      container.appendChild(Recipe(recipe));
     } catch (error) {
       console.error("Ошибка при создании рецепта:", error);
       alert("Произошла ошибка при создании рецепта.");
@@ -88,5 +90,5 @@ export function Form() {
   form.appendChild(inputRecipeNumber);
   form.appendChild(button);
 
-  return form;
+  return container;
 }
