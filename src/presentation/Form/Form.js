@@ -36,10 +36,11 @@ export function Form() {
       selected: true,
       hidden: true,
     },
-    { value: "meat", text: "Блюда из мяса" },
-    { value: "fish", text: "Блюда из рыбы" },
-    { value: "vegetarian", text: "Вегетарианские блюда" },
-    { value: "desserts", text: "Десерты" },
+    { value: "Meat", text: "Блюда из мяса" },
+    { value: "Chicken", text: "Блюда из курицы" },
+    { value: "Fish", text: "Блюда из рыбы" },
+    { value: "Vegetarian", text: "Вегетарианские блюда" },
+    { value: "Desserts", text: "Десерты" },
   ];
 
   dishOptions.forEach((optionData) => {
@@ -85,7 +86,7 @@ export function Form() {
       recipeNumber > 10 ||*/
       !dishType
     ) {
-      alert("Пожалуйста, заполните все поля корректно.");
+      alert("Пожалуйста, выберите основное меню."); // здесь вывести ошибку в блок с error
       return;
     }
 

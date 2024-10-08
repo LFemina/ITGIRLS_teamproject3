@@ -2,7 +2,7 @@ import { RecipeList } from "../domain/RecipeList";
 import { Recipe } from "../domain/Recipe";
 
 const API_URL =
-  "http://3.76.204.114/recipe-api/recipes/random/";
+  "http://3.76.204.114/recipe-api/recipes/random/?type=";
 
 class RecipeApiService { 
    
@@ -35,7 +35,7 @@ class RecipeApiService {
 
   async read(dishType) {
 
-    const response = await fetch(API_URL);
+    const response = await fetch(API_URL + dishType);
     
     const data = await response.json();
 
