@@ -1,0 +1,39 @@
+.request
+    display: grid
+    grid-template-columns: repeat(2, 1fr)
+    grid-template-rows: repeat(2, auto)
+    width: 100%
+    gap: 1rem
+    justify-content: center
+    align-content: center
+
+.label
+    grid-column: 1/3
+    grid-row: 1/2
+    font-weight: bold
+    color: #495057
+
+#entity
+    grid-column: 1/2
+    grid-row: 2/3
+    padding: 0.5rem
+    border: 1px solid #ced4da
+    border-radius: 4px
+    width: 100%
+
+.fetchBtn
+    grid-column: 2/3
+    grid-row: 2/3
+    background-color: #6f42c1
+    color: #ffffff
+    border: none
+    padding: 0.5rem 1rem
+    border-radius: 4px
+    cursor: pointer
+    font-weight: bold
+    transition: background-color 0.3s
+    padding: 0.5rem
+    width: 100%
+
+    &:hover
+        background-color: #5a32a3

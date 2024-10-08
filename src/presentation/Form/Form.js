@@ -1,26 +1,30 @@
 import { recipeApiService } from "../../infrastructure/RecipeApiService";
 import { Recipe } from "../Recipe/Recipe.js";
+import "./styles.sass";
 
 // Формируем компонент формы
 export function Form() {
+  //это был div --> request
   const container = document.createElement("div");
-  const form = document.createElement("form");
-  const title = document.createElement("h2");
-  const inputRecipeNumber = document.createElement("input");
-  const selectDish = document.createElement("select");
-  const button = document.createElement("button"); // получаем все элементы
 
+  //создаём саму форму
+  const form = document.createElement("form");
+
+  // добавляем её в container
   container.appendChild(form);
 
-  // Заголовок формы
-  title.innerText = "Готовые рецепты для разнообразия вашего рациона"; // прописываем заголовок
+  // создаём элементы самой формы
+  const label = document.createElement('label');
+  /*const inputRecipeNumber = document.createElement("input"); - оказался не нужен, возвращает random*/
+  const selectDish = document.createElement("select");
+  const button = document.createElement("button");
 
-  // Устанавливаем атрибуты для номера рецепта
+  /*Устанавливаем атрибуты для номера рецепта
   inputRecipeNumber.setAttribute("type", "number");
   inputRecipeNumber.setAttribute("placeholder", "Номер рецепта (от 1 до 10)");
   inputRecipeNumber.setAttribute("min", "1");
   inputRecipeNumber.setAttribute("max", "10");
-  inputRecipeNumber.setAttribute("required", "true");
+  inputRecipeNumber.setAttribute("required", "true");*/
 
   // Формируем select для выбора типа блюда
   selectDish.setAttribute("name", "dishType");
@@ -50,8 +54,18 @@ export function Form() {
     selectDish.appendChild(option);
   });
 
+  // присваиваем классы и id всем элементам на странице, добавляем контент
+  form.className = 'request'; // контейнер для формы
+
+  // label для select
+  label.htmlFor = 'entity';
+  label.className = 'label';
+  label.textContent = 'Что вы хотите приготовить?';
+  // select
+  selectDish.id = 'entity';
   // Кнопка отправки формы
   button.type = "submit";
+  button.className = 'fetchBtn';
   button.innerText = "Вперед!";
 
   // Обработчик отправки формы
@@ -60,15 +74,15 @@ export function Form() {
     container.innerHTML = "";
     container.appendChild(form);
 
-    // Получаем значения из формы
-    const recipeNumber = parseInt(inputRecipeNumber.value.trim(), 10);
-    const dishType = selectDish.value;
+  // Получаем значения из формы
+  // const recipeNumber = parseInt(inputRecipeNumber.value.trim(), 10);
+  const dishType = selectDish.value;
 
     // Валидация формы
     if (
-      isNaN(recipeNumber) ||
+      /*isNaN(recipeNumber) ||
       recipeNumber < 1 ||
-      recipeNumber > 10 ||
+      recipeNumber > 10 ||*/
       !dishType
     ) {
       alert("Пожалуйста, заполните все поля корректно.");
@@ -81,13 +95,14 @@ export function Form() {
       container.appendChild(Recipe(recipe));
     } catch (error) {
       console.error("Ошибка при создании рецепта:", error);
-      alert("Произошла ошибка при создании рецепта.");
+      alert("Произошла ошибка при создании рецепта."); // здесь вывести ошибку в блок с error
     }
   });
 
   // Добавляем элементы в форму
+  form.appendChild(label);
   form.appendChild(selectDish);
-  form.appendChild(inputRecipeNumber);
+  /*form.appendChild(inputRecipeNumber);*/
   form.appendChild(button);
 
   return container;
