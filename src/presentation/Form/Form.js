@@ -1,5 +1,9 @@
 import { recipeApiService } from "../../infrastructure/RecipeApiService";
 import { Recipe } from "../Recipe/Recipe.js";
+import { errorHandler } from "../Error/errorHandler.js";
+import { UserError } from "../../domain/ErrorClases.js";
+import { ApiError } from "../../domain/ErrorClases.js";
+import { CreateConteiner } from "../Error/errorConteinerCreate.js";
 import "./styles.sass";
 
 // Формируем компонент формы
@@ -75,28 +79,25 @@ export function Form() {
     container.innerHTML = "";
     container.appendChild(form);
 
-  // Получаем значения из формы
+ // Получаем значения из формы
   // const recipeNumber = parseInt(inputRecipeNumber.value.trim(), 10);
   const dishType = selectDish.value;
 
-    // Валидация формы
-    if (
-      /*isNaN(recipeNumber) ||
-      recipeNumber < 1 ||
-      recipeNumber > 10 ||*/
-      !dishType
-    ) {
-      alert("Пожалуйста, выберите основное меню."); // здесь вывести ошибку в блок с error
-      return;
+    try {
+      // Валидация формы
+    if (!dishType) {
+      throw new UserError("Пожалуйста, выберите тип блюда."); //Выбрасываем ошибку
     }
 
     // Читаем рецепт с помощью API сервиса
-    try {
-      const recipe = await recipeApiService.read(dishType);
-      container.appendChild(Recipe(recipe));
+    const recipe = await recipeApiService.read(dishType);
+      if (!recipe){
+        throw new Error("Ошибка при получении данных.");
+  }
+    container.appendChild(Recipe(recipe));
     } catch (error) {
-      console.error("Ошибка при создании рецепта:", error);
-      alert("Произошла ошибка при создании рецепта."); // здесь вывести ошибку в блок с error
+      container.appendChild(CreateConteiner()); //Создаем контейнер для ошибки
+      errorHandler(error); //Обработчик кладет ошибку в контейнер
     }
   });
 

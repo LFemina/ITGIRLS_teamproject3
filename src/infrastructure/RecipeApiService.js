@@ -1,5 +1,6 @@
 import { RecipeList } from "../domain/RecipeList";
 import { Recipe } from "../domain/Recipe";
+import { NotFoundError } from "../domain/ErrorClases";
 
 const API_URL =
   "http://3.76.204.114/recipe-api/recipes/random/?type=";
@@ -38,6 +39,9 @@ class RecipeApiService {
     const response = await fetch(API_URL + dishType);
     
     const data = await response.json();
+    if (!data) {
+      throw new NotFoundError("Рецепт не найден."); // Выбрасываем ошибку 
+    }
 
     return Recipe.fromApi(data);
   }
