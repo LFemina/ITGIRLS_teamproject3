@@ -5,7 +5,7 @@ import "./styles.sass";
 
 export function App() {
   // контейнер с заголовками, вмещающий в себя форму, сообщение о загрузке, ответе и ошибке
-  const app = document.createElement("div");
+  const app = document.getElementById('app');
 
   // создаём ещё один div, в нём будет заголовок h2
   const titleForm =  document.createElement('div');
@@ -26,10 +26,8 @@ export function App() {
   app.appendChild(Form());
 
   // добавляем классы и контент
-  app.className = "container";
-  titleDoc.innerText = "Готовые рецепты для разнообразия вашего рациона"; // заголовок страницы
-  titleForm.className = 'title'; // контейнер для h2
-  titleFormH2.textContent = 'Не знаете что приготовить? Предлагаем Вам на выбор готовые рецепты!'; // h2
+     //УБРАЛА В ПРАВЫЙ БЛОК
+  
   
   // контейнер с сообщением о загрузке
   loading.id = 'loading';
@@ -39,3 +37,6 @@ export function App() {
 
   return app;
 }
+
+document.getElementById('app').appendChild(App());
+

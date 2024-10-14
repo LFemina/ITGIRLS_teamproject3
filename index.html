@@ -1,13 +1,44 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <link rel="stylesheet" href="src/presentation/styles/styles.sass">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <title>MyRecipe</title>
   </head>
-  <body>
-    <div id="app"></div>
+  <body class="body-container">
+
+    <header class="header-nav">
+        <img class="header-nav__logo" src="src/presentation/images/logo1.jpeg" alt="логотип">      
+        <a class="header-nav__item" href="#mainpage">ГЛАВНАЯ СТРАНИЦА</a>
+        <a class="header-nav__item" href="#myrecipes">МОИ РЕЦЕПТЫ</a>
+        <a href="/">
+          <img class="header-nav__personal-account" src="src/presentation/images/icon-person.png" alt="личный кабнет">
+        </a> 
+    </header>
+
+    <main class="main">
+      
+      <div class="cake" id="cake-display">
+        <img class="cake__img" src="src/presentation/images/cake.jpg" alt="торт">
+      </div>
+      <div class="text">
+          <h1 class="text__title">Готовые рецепты для разнообразия вашего рационa</h1>
+          <p class="text__paragraph">Не знаете что приготовить?<br> Предлагаем Вам на выбор готовые рецепты!</p>
+          <div id="app"></div>
+      </div>
+    
+           
+    </main>
+
+    <div class="random-recipe"></div>
+
     <script type="module" src="/main.js"></script>
+
   </body>
 </html>

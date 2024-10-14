@@ -16,5 +16,7 @@ export function Recipe(recipe) {
   // добавляем классы
   container.className = 'result';
 
+  document.getElementById('cake-display').remove();
+
   return container;
 }
