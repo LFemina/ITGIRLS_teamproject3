@@ -17,7 +17,8 @@ export function Recipe(recipe) {
   container.className = 'result';
 
   document.getElementById('cake-display').style.display = 'none';
-  document.getElementById('text-display').style.gridRow = '1/2'
+  document.getElementById('main-display').style.gridTemplateRows = '1fr';
+  document.getElementById('text-display').style.gridRow = '1/2';
 
   return container;
 }
