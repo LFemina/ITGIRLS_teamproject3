@@ -16,7 +16,8 @@ export function Recipe(recipe) {
   // добавляем классы
   container.className = 'result';
 
-  document.getElementById('cake-display').remove();
+  document.getElementById('cake-display').style.display = 'none';
+  document.getElementById('text-display').style.gridRow = '1/2'
 
   return container;
 }
